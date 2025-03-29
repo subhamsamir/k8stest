@@ -1,0 +1,8 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: mysql
+  labels:
+    name: mysql
+    app: mysql
+    version: "1.0"
