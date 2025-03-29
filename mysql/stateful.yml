@@ -1,1 +1,46 @@
 kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql-statefulset
+  namespace: mysql
+
+  spec:
+    serviceName: mysql-service
+    replicas: 3
+    selector:
+      matchLabels:
+        app: mysql
+    templates:
+      matchLabels:
+        app: mysql
+    templates:
+      metadata:
+        labels:
+          app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: rootpassword
+            - name: MYSQL_DATABASE
+              value: devops
+            - name: MYSQL_USER
+              value: myuser
+            - name: MYSQL_PASSWORD
+              value: mypassword
+          volumeMounts:
+            - name: mysql-data
+              mountPath: /var/lib/mysql
+
+          volumeClaimTemp1ates :
+          - metadata:
+              name: mysql-data
+          spec:
+            accessModes : ["ReadWriteOnce"]
+            resources :
+              requests :
+                storage : IGi
